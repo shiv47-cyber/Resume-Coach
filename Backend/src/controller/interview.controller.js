@@ -20,9 +20,15 @@ async function generateInterViewReportController(req , res) {
         return res.status(400).json({ message: "Resume must be a PDF file." })
     }
 
-    const resumeContent = req.file
-        ? await (new pdfParse.PDFParse(Uint8Array.from(req.file.buffer))).getText()
-        : { text: "" }
+    let resumeContent = { text: "" }
+    if (req.file) {
+        try {
+            resumeContent = await pdfParse(req.file.buffer)
+        } catch (error) {
+            console.error("Resume PDF parsing failed:", error)
+            return res.status(400).json({ message: "Could not read the uploaded PDF. Please upload a valid PDF file." })
+        }
+    }
 
     const interViewReportByAi = await generateInterviewReport({
          resume: resumeContent.text,
