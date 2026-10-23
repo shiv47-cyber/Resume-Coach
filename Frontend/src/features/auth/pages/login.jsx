@@ -7,7 +7,7 @@ import { useState } from 'react'
 
 const Login = () => {
     
-    const { loading , handleLogin }= useAuth()
+    const { loading, authError, handleLogin } = useAuth()
     const navigate = useNavigate()
 
 
@@ -17,8 +17,9 @@ const Login = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        await handleLogin({email , password})
-        navigate("/")
+        if (await handleLogin({ email, password })) {
+            navigate("/")
+        }
     }
 
     if(loading){
@@ -41,6 +42,7 @@ const Login = () => {
                     <input type="password" name="password" id="password" placeholder='Enter password' onChange={(e)=>{ setPassword(e.target.value)}}/>
                 </div>
 
+                {authError && <p role="alert">{authError}</p>}
                 <button type="submit" className='button primary-button'>Login</button>
             </form>
 

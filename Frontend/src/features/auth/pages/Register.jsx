@@ -10,15 +10,16 @@ const Register = () => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
 
-    const { loading , handleRegister } = useAuth()
+    const { loading, authError, handleRegister } = useAuth()
 
 
 
     const handleSubmit = async (e) => {
         e.preventDefault()
         // Handle registration logic here
-        await handleRegister({username, email, password})
-        navigate("/")
+        if (await handleRegister({ username, email, password })) {
+            navigate("/")
+        }
     }
 
     if(loading){
@@ -49,6 +50,7 @@ const Register = () => {
                         <input type="password" name="password" id="password" placeholder='Enter password' onChange={(e)=>{setPassword(e.target.value)}} />
                     </div>
 
+                    {authError && <p role="alert">{authError}</p>}
                     <button type="submit" className='button primary-button'>Register</button>
                 </form>
 

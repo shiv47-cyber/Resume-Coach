@@ -34,9 +34,11 @@ Create `Backend/src/.env` with your own credentials:
 MONGO_URI=your_mongodb_connection_string
 JWT_SECRET=your_long_random_jwt_secret
 GOOGLE_API_KEY=your_google_gemini_api_key
+CORS_ORIGINS=http://localhost:5173
 ```
 
 Keep this file private. It is ignored by Git; never commit credentials or paste them into issues or chat.
+For deployment, set `CORS_ORIGINS` to your frontend's exact origin (for example, `https://your-app.vercel.app`). Multiple origins may be comma-separated.
 
 ### 2. Install dependencies
 
@@ -54,6 +56,8 @@ cd Frontend
 npm install
 ```
 
+For a deployed frontend, set `VITE_API_URL` in the frontend environment (for example, `https://your-backend.vercel.app`). For local development it defaults to `http://localhost:3000`.
+
 ### 3. Start the app
 
 Start the backend from the `Backend` directory:
@@ -70,7 +74,7 @@ Start the frontend from the `Frontend` directory:
 npm run dev
 ```
 
-Vite serves the frontend at `http://localhost:5173`. The backend CORS configuration currently allows this origin.
+Vite serves the frontend at `http://localhost:5173`. The backend allows this origin by default. In production, login cookies require HTTPS and are configured for cross-origin requests.
 
 ## API overview
 
