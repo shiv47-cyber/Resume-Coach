@@ -39,6 +39,7 @@ CORS_ORIGINS=http://localhost:5173
 
 Keep this file private. It is ignored by Git; never commit credentials or paste them into issues or chat.
 For deployment, set `CORS_ORIGINS` to your frontend's exact origin (for example, `https://your-app.vercel.app`). Multiple origins may be comma-separated.
+For MongoDB Atlas deployments, set `MONGO_URI` in the backend's Vercel environment variables and ensure Atlas Network Access allows connections from the deployed backend. Do not put database credentials in frontend variables.
 
 ### 2. Install dependencies
 
