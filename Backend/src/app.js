@@ -28,6 +28,10 @@ app.use(async (req, res, next) => {
     }
 })
 
+app.get("/api/health", (req, res) => {
+    res.json({ status: "ok", database: "connected" })
+})
+
 //  require all the routes here
 const authRouter = require("./routes/auth.routes");app.use("/api/auth",authRouter)
 const interviewRouter= require("./routes/interview.routes");app.use("/api/interview", interviewRouter)
