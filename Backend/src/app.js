@@ -4,8 +4,11 @@ const cors = require("cors")
 const connectToDB = require("./config/database")
 const app = express()
 
-const allowedOrigins = (process.env.CORS_ORIGINS || "http://localhost:5173")
-    .split(",")
+const allowedOrigins = [
+    "http://localhost:5173",
+    "https://resume-coach77.vercel.app",
+    ...(process.env.CORS_ORIGINS || "").split(",")
+]
     .map((origin) => origin.trim())
     .filter(Boolean)
 
